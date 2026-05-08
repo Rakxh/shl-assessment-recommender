@@ -29,7 +29,7 @@ app.add_middleware(
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
-MODEL = "claude-sonnet-4-6"
+MODEL = "claude-haiku-4-5-20251001"  # fastest, cheapest, well within token limits
 
 # ──────────────────────────────────────────────
 # Request / Response schemas
@@ -202,7 +202,8 @@ def chat(req: ChatRequest):
     try:
         result = call_claude(messages)
     except httpx.HTTPStatusError as e:
-        raise HTTPException(status_code=502, detail=f"Upstream API error: {e.response.status_code}")
+        detail = f"Upstream API error: {e.response.status_code} — {e.response.text[:300]}"
+        raise HTTPException(status_code=502, detail=detail)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
