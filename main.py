@@ -29,7 +29,7 @@ app.add_middleware(
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 
 # ──────────────────────────────────────────────
 # Request / Response schemas
