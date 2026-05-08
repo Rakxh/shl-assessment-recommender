@@ -15,9 +15,7 @@ from pydantic import BaseModel
 
 from catalog_data import CATALOG, get_catalog_summary
 
-# ──────────────────────────────────────────────
-# App setup
-# ──────────────────────────────────────────────
+
 app = FastAPI(title="SHL Assessment Recommender", version="1.0.0")
 
 app.add_middleware(
@@ -29,13 +27,11 @@ app.add_middleware(
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
-MODEL = "claude-haiku-4-5-20251001"  # fastest, cheapest, well within token limits
+MODEL = "claude-haiku-4-5-20251001"  
 
-# ──────────────────────────────────────────────
-# Request / Response schemas
-# ──────────────────────────────────────────────
+
 class Message(BaseModel):
-    role: str   # "user" | "assistant"
+    role: str   
     content: str
 
 class ChatRequest(BaseModel):
@@ -51,9 +47,7 @@ class ChatResponse(BaseModel):
     recommendations: list[RecommendationItem]
     end_of_conversation: bool
 
-# ──────────────────────────────────────────────
-# System prompt
-# ──────────────────────────────────────────────
+
 CATALOG_TEXT = get_catalog_summary()
 
 SYSTEM_PROMPT = f"""You are an expert SHL Assessment Recommender assistant. Your sole purpose is to help hiring managers and recruiters find the right SHL individual test solutions from the official SHL product catalog.
@@ -103,9 +97,7 @@ Description follows.
 A = Ability & Aptitude | B = Biodata & Situational Judgement | C = Competencies | D = Development & 360 | E = Assessment Exercises | K = Knowledge & Skills | P = Personality & Behavior | S = Simulations
 """
 
-# ──────────────────────────────────────────────
-# Helpers
-# ──────────────────────────────────────────────
+
 VALID_URLS = {item["url"] for item in CATALOG}
 CATALOG_BY_URL = {item["url"]: item for item in CATALOG}
 
@@ -120,7 +112,7 @@ def validate_recommendations(recs: list[dict]) -> list[RecommendationItem]:
         if url in VALID_URLS:
             valid.append(RecommendationItem(name=name, url=url, test_type=test_type))
         else:
-            # Try to fix by fuzzy-matching name
+            
             matched = _fuzzy_match_by_name(name)
             if matched:
                 valid.append(RecommendationItem(
@@ -160,14 +152,14 @@ def call_claude(messages: list[dict]) -> dict:
 
     raw = data["content"][0]["text"].strip()
 
-    # Strip markdown fences if present (defensive)
+    
     raw = re.sub(r"^```(?:json)?\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
 
     try:
         parsed = json.loads(raw)
     except json.JSONDecodeError:
-        # Attempt to extract JSON object from text
+        
         match = re.search(r"\{.*\}", raw, re.DOTALL)
         if match:
             parsed = json.loads(match.group())
@@ -177,9 +169,7 @@ def call_claude(messages: list[dict]) -> dict:
     return parsed
 
 
-# ──────────────────────────────────────────────
-# Endpoints
-# ──────────────────────────────────────────────
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
@@ -190,12 +180,11 @@ def chat(req: ChatRequest):
     if not req.messages:
         raise HTTPException(status_code=400, detail="messages list is empty")
 
-    # Cap at 8 turns (user+assistant each = 1 turn pair), so max 16 messages
-    # Keep last 14 messages + we add current: limit context window
-    messages = [{"role": m.role, "content": m.content} for m in req.messages]
-    messages = messages[-14:]  # Keep recent context
 
-    # Enforce roles alternate starting with user
+    messages = [{"role": m.role, "content": m.content} for m in req.messages]
+    messages = messages[-14:]  
+
+   
     if not messages or messages[0]["role"] != "user":
         raise HTTPException(status_code=400, detail="First message must be from user")
 
@@ -211,7 +200,7 @@ def chat(req: ChatRequest):
     raw_recs = result.get("recommendations", [])
     end_flag = bool(result.get("end_of_conversation", False))
 
-    # Safety: validate all returned URLs
+    
     validated_recs = validate_recommendations(raw_recs) if raw_recs else []
 
     return ChatResponse(
