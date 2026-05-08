@@ -15,7 +15,6 @@ S = Simulations
 """
 
 CATALOG = [
-    # ── Ability & Aptitude (A) ──────────────────────────────────────────────
     {
         "name": "Verify Numerical Reasoning",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/verify-numerical-reasoning/",
@@ -172,7 +171,7 @@ CATALOG = [
         "languages": ["English (USA)", "English International"],
         "keywords": ["numerical", "quantitative", "reasoning", "manager", "finance", "data"],
     },
-    # ── Biodata & Situational Judgment (B) ─────────────────────────────────
+    
     {
         "name": "Situational Judgement Test (SJT)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/situational-judgement-test/",
@@ -246,8 +245,7 @@ CATALOG = [
         "languages": ["English (USA)", "English International"],
         "keywords": ["remote work", "hybrid", "work from home", "virtual", "self-management", "autonomy"],
     },
-    # ── Knowledge & Skills (K) ──────────────────────────────────────────────
-    # Programming Languages
+   
     {
         "name": "Java 8 (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/java-8-new/",
@@ -428,7 +426,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["TypeScript", "JavaScript", "frontend", "web development", "programming", "developer"],
     },
-    # Web frameworks
+   
     {
         "name": "Angular (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/angular-new/",
@@ -477,7 +475,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["Node.js", "JavaScript", "backend", "server-side", "Express", "developer"],
     },
-    # Databases
+    
     {
         "name": "SQL (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/sql-new/",
@@ -526,7 +524,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["MongoDB", "NoSQL", "database", "backend", "cloud", "developer"],
     },
-    # Cloud & DevOps
+    
     {
         "name": "Amazon Web Services (AWS) (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/amazon-web-services-new/",
@@ -623,7 +621,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["Linux", "Unix", "shell", "sysadmin", "DevOps", "infrastructure", "system administration"],
     },
-    # Data
+   
     {
         "name": "Machine Learning (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/machine-learning-new/",
@@ -672,7 +670,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["Spark", "big data", "data engineering", "distributed computing", "Scala", "Python"],
     },
-    # Cybersecurity
+    
     {
         "name": "Cybersecurity (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/cybersecurity-new/",
@@ -697,7 +695,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["network security", "security", "firewalls", "VPN", "intrusion detection", "cybersecurity"],
     },
-    # Testing & QA
+    
     {
         "name": "Manual Testing (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/manual-testing-new/",
@@ -722,7 +720,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["automation testing", "Selenium", "QA", "test automation", "CI/CD", "software testing"],
     },
-    # Microsoft Office
+    
     {
         "name": "MS Excel (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/ms-excel-new/",
@@ -807,7 +805,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["React Native", "mobile", "cross-platform", "JavaScript", "app development", "developer"],
     },
-    # Business skills
+    
     {
         "name": "Accounting (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/accounting-new/",
@@ -892,7 +890,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["marketing", "digital marketing", "SEO", "brand", "market research", "campaign"],
     },
-    # ── Simulations (S) ─────────────────────────────────────────────────────
+    
     {
         "name": "Coding Simulation – Java",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/coding-simulation-java/",
@@ -965,7 +963,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["in-basket", "e-tray", "simulation", "prioritization", "management", "decision making", "leadership"],
     },
-    # ── Competencies (C) ────────────────────────────────────────────────────
+    
     {
         "name": "Competency Based Interview Tool",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/competency-based-interview-tool/",
@@ -990,7 +988,7 @@ CATALOG = [
         "languages": ["English (USA)", "English International"],
         "keywords": ["competency", "behavioral", "UCF", "leadership", "teamwork", "communication", "management"],
     },
-    # ── Development & 360 (D) ───────────────────────────────────────────────
+    
     {
         "name": "360 Degree Feedback",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/360-degree-feedback/",
@@ -1003,7 +1001,7 @@ CATALOG = [
         "languages": ["English (USA)", "English International"],
         "keywords": ["360 feedback", "multi-rater", "development", "leadership", "performance", "management"],
     },
-    # ── Assessment Exercises (E) ─────────────────────────────────────────────
+    
     {
         "name": "Group Exercise",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/group-exercise/",
@@ -1040,7 +1038,7 @@ CATALOG = [
         "languages": ["English (USA)"],
         "keywords": ["role play", "interpersonal", "communication", "customer", "negotiation", "assessment center"],
     },
-    # ── Additional Knowledge & Skills ────────────────────────────────────────
+    
     {
         "name": "Swing (New)",
         "url": "https://www.shl.com/solutions/products/product-catalog/view/swing-new/",
@@ -1223,7 +1221,7 @@ CATALOG = [
     },
 ]
 
-# Build a lookup dict by name for quick access
+
 CATALOG_BY_NAME = {item["name"].lower(): item for item in CATALOG}
 
 def get_catalog_summary():
