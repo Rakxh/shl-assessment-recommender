@@ -28,7 +28,7 @@ def run_conversation(url: str, turns: list[str], label: str, expected_names: Opt
     schema_errors = []
 
     for user_msg in turns:
-        if turn_count >= 8:  # max 8 turns per spec
+        if turn_count >= 8:  
             break
 
         messages.append({"role": "user", "content": user_msg})
@@ -40,7 +40,7 @@ def run_conversation(url: str, turns: list[str], label: str, expected_names: Opt
             print(f"  ERROR: {e}")
             return {"label": label, "error": str(e)}
 
-        # Schema compliance checks
+        
         for field in ["reply", "recommendations", "end_of_conversation"]:
             if field not in response:
                 schema_errors.append(f"Missing field: {field}")
@@ -54,7 +54,7 @@ def run_conversation(url: str, turns: list[str], label: str, expected_names: Opt
             print(f"  Recommendations ({len(recs)}):")
             for r in recs:
                 print(f"    - {r.get('name')} ({r.get('test_type')}) | {r.get('url','NO URL')[:60]}")
-                # Check URL integrity
+                
                 if not r.get("url", "").startswith("https://www.shl.com/"):
                     schema_errors.append(f"Invalid URL: {r.get('url')}")
                 if len(recs) > 10:
@@ -71,7 +71,7 @@ def run_conversation(url: str, turns: list[str], label: str, expected_names: Opt
             print("[Conversation ended by agent]")
             break
 
-    # Recall@10 computation
+    
     recall = None
     if expected_names and final_recs:
         expected_lower = {n.lower() for n in expected_names}
@@ -99,7 +99,7 @@ def main():
     parser.add_argument("--url", default="http://localhost:8000")
     args = parser.parse_args()
 
-    # Health check
+    
     try:
         resp = httpx.get(f"{args.url}/health", timeout=5)
         assert resp.json()["status"] == "ok"
@@ -110,7 +110,7 @@ def main():
 
     results = []
 
-    # ── Scenario 1: Java developer, vague start ──────────────────────────
+    
     results.append(run_conversation(
         args.url,
         turns=[
@@ -122,15 +122,13 @@ def main():
         expected_names=["Java 8 (New)", "Core Java (New)", "OPQ32r (Occupational Personality Questionnaire)", "Spring (New)"],
     ))
 
-    # ── Scenario 2: Very vague - should ask, not recommend ───────────────
+    
     results.append(run_conversation(
         args.url,
         turns=["I need an assessment"],
         label="Vague first turn - should clarify",
     ))
-    # Verify that turn 1 with vague query returns no recommendations
-
-    # ── Scenario 3: Job description paste ───────────────────────────────
+   
     results.append(run_conversation(
         args.url,
         turns=[
@@ -143,7 +141,7 @@ def main():
         expected_names=["Python (New)", "SQL (New)", "Machine Learning (New)", "Verify Numerical Reasoning"],
     ))
 
-    # ── Scenario 4: Refinement mid-conversation ──────────────────────────
+    
     results.append(run_conversation(
         args.url,
         turns=[
@@ -155,7 +153,7 @@ def main():
         label="Refinement during conversation",
     ))
 
-    # ── Scenario 5: Comparison request ──────────────────────────────────
+    
     results.append(run_conversation(
         args.url,
         turns=[
@@ -164,7 +162,7 @@ def main():
         label="Comparison request - OPQ vs MQ",
     ))
 
-    # ── Scenario 6: Off-topic refusal ───────────────────────────────────
+   
     results.append(run_conversation(
         args.url,
         turns=[
@@ -173,7 +171,7 @@ def main():
         label="Off-topic - general hiring advice (should refuse)",
     ))
 
-    # ── Scenario 7: Prompt injection attempt ─────────────────────────────
+    
     results.append(run_conversation(
         args.url,
         turns=[
@@ -182,7 +180,7 @@ def main():
         label="Prompt injection attempt (should refuse)",
     ))
 
-    # ── Scenario 8: Senior executive hire ───────────────────────────────
+   
     results.append(run_conversation(
         args.url,
         turns=[
@@ -193,7 +191,7 @@ def main():
         expected_names=["OPQ32r (Occupational Personality Questionnaire)", "Strategic Reasoning", "Motivational Questionnaire (MQ)"],
     ))
 
-    # ── Scenario 9: Entry-level customer service ─────────────────────────
+   
     results.append(run_conversation(
         args.url,
         turns=[
@@ -203,7 +201,7 @@ def main():
         expected_names=["Customer Service (New)", "Situational Judgement Test (SJT)", "Contact Center Simulation"],
     ))
 
-    # ── Scenario 10: Turn cap test ───────────────────────────────────────
+    
     results.append(run_conversation(
         args.url,
         turns=[
@@ -219,7 +217,7 @@ def main():
         label="Many turns - turn cap test",
     ))
 
-    # ── Summary ──────────────────────────────────────────────────────────
+    
     print("\n" + "="*60)
     print("EVALUATION SUMMARY")
     print("="*60)
